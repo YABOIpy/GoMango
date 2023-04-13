@@ -1,0 +1,12 @@
+{
+  "DataBase": {
+    "dbname": "",
+    "dbtype": "mysql",
+    "port": 3306
+  },
+  "DbAuth": {
+    "ServerIPv4": ["192.168.68.145", "8080"],
+    "username": "",
+    "password": ""
+  }
+}
