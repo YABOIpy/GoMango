@@ -1,23 +1,30 @@
 package transfer
 
 import (
-	"crypto/tls"
 	"fmt"
+	"net"
 )
 
-func (Go *Mango) dial() {
-	Go.TransportCfg(
-		&tls.Config{
-			InsecureSkipVerify: true,
-		})
-
-	host, err := tls.Dial(
+func (Go *Mango) Dial(msg string) {
+	data := Go.Config("dbconfig.json").DbAuth
+	host, err := net.Dial(
 		"tcp",
-		*Address,
-		Go.Cfg.Transport,
+		data.ServerIP[0]+":"+data.ServerIP[1],
 	)
-	fmt.Print(host, err)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer host.Close()
+	Go.Send(host, msg, err)
+}
 
+func (Go *Mango) Send(host net.Conn, msg string, err error) {
+	_, err = host.Write([]byte(msg))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
 
 func X() Mango {
