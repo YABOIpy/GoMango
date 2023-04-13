@@ -2,7 +2,10 @@ module GoMango
 
 go 1.18
 
-require github.com/hashicorp/hcl/v2 v2.16.2
+require (
+	github.com/go-sql-driver/mysql v1.7.0
+	github.com/hashicorp/hcl/v2 v2.16.2
+)
 
 require (
 	github.com/agext/levenshtein v1.2.1 // indirect
