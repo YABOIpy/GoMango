@@ -2,17 +2,12 @@ package transfer
 
 import (
 	"crypto/tls"
-	"flag"
 )
 
 var (
-	Go      = X()
-	Netcfg  = Go.NetConf()
-	Address = flag.String(
-		Netcfg.Service.Processes.Command,
-		Go.NetConf().Service.ListenAddr,
-		"",
-	)
+	Go     = X()
+	Netcfg = Go.NetConf()
+	buffer = make([]byte, 1024)
 )
 
 type Mango struct {
@@ -21,6 +16,17 @@ type Mango struct {
 
 type Config struct {
 	Transport *tls.Config
+	Database  struct {
+		Db     string `json:"dbname"`
+		DbType string `json:"dbtype"`
+		Port   int    `json:"port"`
+	} `json:"DataBase"`
+
+	DbAuth struct {
+		ServerIP []string `json:"ServerIPv4"`
+		User     string   `json:"username"`
+		Pass     string   `json:"password"`
+	} `json:"DbAuth"`
 }
 
 type HclConfig struct {

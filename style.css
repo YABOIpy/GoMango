@@ -1,0 +1,88 @@
+body {
+    height: 100vh;
+    background: linear-gradient(90deg, #abadb0, #ffffff);
+
+}
+
+.slider-thumb::before {
+    position: absolute;
+    content: "";
+    left: 0%;
+    top: 0%;
+    width: 550px;
+    height: 650px;
+    background: #242b38;
+    border-radius: 62% 47% 82% 35% / 45% 45% 80% 66%;
+    will-change: border-radius, transform, opacity;
+    animation: sliderShape 10s linear infinite;
+    display: block;
+    z-index: -1;
+    -webkit-animation: sliderShape 10s linear infinite;
+}
+@keyframes sliderShape{
+    0%,100%{
+        border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+        transform: translate3d(0,0,0) rotateZ(0.01deg);
+    }
+    34%{
+        border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
+        transform:  translate3d(0,5px,0) rotateZ(0.01deg);
+    }
+    50%{
+        transform: translate3d(0,0,0) rotateZ(0.01deg);
+    }
+    67%{
+        border-radius: 100% 60% 60% 100% / 100% 100% 60% 60% ;
+        transform: translate3d(0,-3px,0) rotateZ(0.01deg);
+    }
+}
+
+
+
+/* Reset default browser styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Overall layout */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Tabs container */
+.tabs {
+    flex-basis: 20%;
+    background-color: #242b38;
+    color: #fff;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* Tab styling */
+.tab {
+    padding: 10px;
+    border-bottom: 1px solid #1a1f29;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab:hover {
+    background-color: #1a1f29;
+}
+
+.tab.active {
+    background-color: #1a1f29;
+    font-weight: bold;
+}
+
+/* Workspace container */
+.workspace {
+    flex-grow: 1;
+    padding: 20px;
+    color: #242b38;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
