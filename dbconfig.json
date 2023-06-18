@@ -5,7 +5,7 @@
     "port": 3306
   },
   "DbAuth": {
-    "ServerIPv4": ["192.168.68.101", "8080"],
+    "ServerIPv4": ["127.0.0.1", "8080"],
     "username": "root",
     "password": ""
   }
