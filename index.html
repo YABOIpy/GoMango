@@ -5,6 +5,7 @@
 <head>
     <link rel="stylesheet" href="style.css">
     <title>GoMango Web UI</title>
+    <link rel="icon" type="image/x-icon" href="https://user-images.githubusercontent.com/110062350/231760953-8558058f-167c-49d7-93b5-3ad9663c1a64.png">
     <style>
         form {
             color: #242b38;
@@ -89,20 +90,20 @@
     </div>
 
     <script>
-
         const tabs = document.querySelectorAll('.tab');
         const tabContent = document.querySelector('.tab-content');
 
         tabs.forEach((tab, index) => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs
                 tabs.forEach((t) => t.classList.remove('active'));
-                // Add active class to the clicked tab
                 tab.classList.add('active');
 
-                // Update the tab content based on the clicked tab
-                tabContent.innerHTML = `
-          <h2>Tab ${index + 1} Content</h2>`;
+                if (index === 1) {
+                    window.location.href = 'http://127.0.0.1/gomango/list.php';
+                } else {
+                    tabContent.innerHTML = `
+                    <h2>Tab ${index + 1} Content</h2>`;
+                }
             });
         });
     </script>
