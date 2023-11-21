@@ -31,7 +31,7 @@ func ServerRead(conn net.Conn, r *mux.Router) (output string) {
 	for {
 		n, err := conn.Read(buffer)
 		if err != nil {
-			if strings.Contains(err.Error(), "EOF") == false {
+			if !strings.Contains(err.Error(), "EOF") {
 				fmt.Println(err)
 			}
 			return
